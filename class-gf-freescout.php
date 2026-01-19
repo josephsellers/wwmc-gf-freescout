@@ -36,14 +36,14 @@ class GF_FreeScout extends GFFeedAddOn {
 	 *
 	 * @var string
 	 */
-	protected $_slug = 'gravityformsfreescout';
+	protected $_slug = 'wwmc-gf-freescout';
 
 	/**
 	 * Relative path to the main plugin file.
 	 *
 	 * @var string
 	 */
-	protected $_path = 'gravityformsfreescout/freescout.php';
+	protected $_path = 'wwmc-gf-freescout/freescout.php';
 
 	/**
 	 * Full path to this class file.
@@ -148,46 +148,46 @@ class GF_FreeScout extends GFFeedAddOn {
 	public function plugin_settings_fields() {
 		return array(
 			array(
-				'title'       => esc_html__( 'FreeScout API Settings', 'gravityformsfreescout' ),
-				'description' => esc_html__( 'Configure your FreeScout instance connection settings. You can find your API key in FreeScout under Manage -> API Keys.', 'gravityformsfreescout' ),
+				'title'       => esc_html__( 'FreeScout API Settings', 'wwmc-gf-freescout' ),
+				'description' => esc_html__( 'Configure your FreeScout instance connection settings. You can find your API key in FreeScout under Manage -> API Keys.', 'wwmc-gf-freescout' ),
 				'fields'      => array(
 					array(
 						'name'              => 'freescout_url',
-						'label'             => esc_html__( 'FreeScout URL', 'gravityformsfreescout' ),
+						'label'             => esc_html__( 'FreeScout URL', 'wwmc-gf-freescout' ),
 						'type'              => 'text',
 						'class'             => 'medium',
 						'required'          => true,
 						'tooltip'           => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'FreeScout URL', 'gravityformsfreescout' ),
-							esc_html__( 'Enter the base URL of your FreeScout instance (e.g., https://support.example.com). Do not include a trailing slash.', 'gravityformsfreescout' )
+							esc_html__( 'FreeScout URL', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the base URL of your FreeScout instance (e.g., https://support.example.com). Do not include a trailing slash.', 'wwmc-gf-freescout' )
 						),
 						'feedback_callback' => array( $this, 'validate_freescout_url' ),
 					),
 					array(
 						'name'              => 'api_key',
-						'label'             => esc_html__( 'API Key', 'gravityformsfreescout' ),
+						'label'             => esc_html__( 'API Key', 'wwmc-gf-freescout' ),
 						'type'              => 'text',
 						'class'             => 'medium',
 						'required'          => true,
 						'input_type'        => 'password',
 						'tooltip'           => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'API Key', 'gravityformsfreescout' ),
-							esc_html__( 'Enter your FreeScout API key. Generate one in FreeScout under Manage -> API Keys.', 'gravityformsfreescout' )
+							esc_html__( 'API Key', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter your FreeScout API key. Generate one in FreeScout under Manage -> API Keys.', 'wwmc-gf-freescout' )
 						),
 						'feedback_callback' => array( $this, 'validate_api_credentials' ),
 					),
 					array(
 						'name'          => 'default_mailbox_id',
-						'label'         => esc_html__( 'Default Mailbox ID', 'gravityformsfreescout' ),
+						'label'         => esc_html__( 'Default Mailbox ID', 'wwmc-gf-freescout' ),
 						'type'          => 'text',
 						'class'         => 'small',
 						'default_value' => '1',
 						'tooltip'       => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Default Mailbox ID', 'gravityformsfreescout' ),
-							esc_html__( 'Enter the default FreeScout mailbox ID. This can be overridden per form feed. Find the ID in FreeScout mailbox settings.', 'gravityformsfreescout' )
+							esc_html__( 'Default Mailbox ID', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the default FreeScout mailbox ID. This can be overridden per form feed. Find the ID in FreeScout mailbox settings.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
@@ -258,46 +258,46 @@ class GF_FreeScout extends GFFeedAddOn {
 		return array(
 			// Feed Name Section.
 			array(
-				'title'  => esc_html__( 'Feed Settings', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Feed Settings', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'     => 'feedName',
-						'label'    => esc_html__( 'Name', 'gravityformsfreescout' ),
+						'label'    => esc_html__( 'Name', 'wwmc-gf-freescout' ),
 						'type'     => 'text',
 						'class'    => 'medium',
 						'required' => true,
 						'tooltip'  => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Name', 'gravityformsfreescout' ),
-							esc_html__( 'Enter a feed name to uniquely identify this setup.', 'gravityformsfreescout' )
+							esc_html__( 'Name', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter a feed name to uniquely identify this setup.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
 			),
 			// Mailbox Configuration.
 			array(
-				'title'  => esc_html__( 'Mailbox', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Mailbox', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'    => 'mailboxId',
-						'label'   => esc_html__( 'Mailbox ID', 'gravityformsfreescout' ),
+						'label'   => esc_html__( 'Mailbox ID', 'wwmc-gf-freescout' ),
 						'type'    => 'text',
 						'class'   => 'small',
 						'tooltip' => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Mailbox ID', 'gravityformsfreescout' ),
-							esc_html__( 'Enter the FreeScout mailbox ID for this form. Leave empty to use the default from plugin settings.', 'gravityformsfreescout' )
+							esc_html__( 'Mailbox ID', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the FreeScout mailbox ID for this form. Leave empty to use the default from plugin settings.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
 			),
 			// Customer Field Mappings.
 			array(
-				'title'  => esc_html__( 'Customer Information', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Customer Information', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'     => 'customerEmail',
-						'label'    => esc_html__( 'Email', 'gravityformsfreescout' ),
+						'label'    => esc_html__( 'Email', 'wwmc-gf-freescout' ),
 						'type'     => 'field_select',
 						'required' => true,
 						'args'     => array(
@@ -305,44 +305,44 @@ class GF_FreeScout extends GFFeedAddOn {
 						),
 						'tooltip'  => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Customer Email', 'gravityformsfreescout' ),
-							esc_html__( 'Select the form field containing the customer email address.', 'gravityformsfreescout' )
+							esc_html__( 'Customer Email', 'wwmc-gf-freescout' ),
+							esc_html__( 'Select the form field containing the customer email address.', 'wwmc-gf-freescout' )
 						),
 					),
 					array(
 						'name'    => 'customerName',
-						'label'   => esc_html__( 'Name', 'gravityformsfreescout' ),
+						'label'   => esc_html__( 'Name', 'wwmc-gf-freescout' ),
 						'type'    => 'field_select',
 						'args'    => array(
 							'field_types' => array( 'name', 'text' ),
 						),
 						'tooltip' => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Customer Name', 'gravityformsfreescout' ),
-							esc_html__( 'Select the form field containing the customer name (optional).', 'gravityformsfreescout' )
+							esc_html__( 'Customer Name', 'wwmc-gf-freescout' ),
+							esc_html__( 'Select the form field containing the customer name (optional).', 'wwmc-gf-freescout' )
 						),
 					),
 				),
 			),
 			// Conversation Details.
 			array(
-				'title'  => esc_html__( 'Conversation Details', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Conversation Details', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'          => 'subject',
-						'label'         => esc_html__( 'Subject', 'gravityformsfreescout' ),
+						'label'         => esc_html__( 'Subject', 'wwmc-gf-freescout' ),
 						'type'          => 'text',
 						'class'         => 'large merge-tag-support mt-position-right mt-hide_all_fields',
 						'default_value' => 'Contact Form: {form_title}',
 						'tooltip'       => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Subject', 'gravityformsfreescout' ),
-							esc_html__( 'Enter the conversation subject. You can use merge tags like {form_title} or field merge tags.', 'gravityformsfreescout' )
+							esc_html__( 'Subject', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the conversation subject. You can use merge tags like {form_title} or field merge tags.', 'wwmc-gf-freescout' )
 						),
 					),
 					array(
 						'name'     => 'messageField',
-						'label'    => esc_html__( 'Message Field', 'gravityformsfreescout' ),
+						'label'    => esc_html__( 'Message Field', 'wwmc-gf-freescout' ),
 						'type'     => 'field_select',
 						'required' => true,
 						'args'     => array(
@@ -350,29 +350,29 @@ class GF_FreeScout extends GFFeedAddOn {
 						),
 						'tooltip'  => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Message Field', 'gravityformsfreescout' ),
-							esc_html__( 'Select the form field containing the main message content.', 'gravityformsfreescout' )
+							esc_html__( 'Message Field', 'wwmc-gf-freescout' ),
+							esc_html__( 'Select the form field containing the main message content.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
 			),
 			// Extra Fields Mapping.
 			array(
-				'title'  => esc_html__( 'Additional Information', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Additional Information', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'        => 'extraFields',
-						'label'       => esc_html__( 'Extra Fields', 'gravityformsfreescout' ),
+						'label'       => esc_html__( 'Extra Fields', 'wwmc-gf-freescout' ),
 						'type'        => 'generic_map',
 						'tooltip'     => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Extra Fields', 'gravityformsfreescout' ),
-							esc_html__( 'Map additional form fields to include in the conversation message. The key will be used as a label.', 'gravityformsfreescout' )
+							esc_html__( 'Extra Fields', 'wwmc-gf-freescout' ),
+							esc_html__( 'Map additional form fields to include in the conversation message. The key will be used as a label.', 'wwmc-gf-freescout' )
 						),
 						'key_field'   => array(
-							'placeholder'  => esc_html__( 'Label', 'gravityformsfreescout' ),
+							'placeholder'  => esc_html__( 'Label', 'wwmc-gf-freescout' ),
 							'custom_value' => true,
-							'title'        => esc_html__( 'Label', 'gravityformsfreescout' ),
+							'title'        => esc_html__( 'Label', 'wwmc-gf-freescout' ),
 						),
 						'value_field' => array(
 							'choices'      => 'form_fields',
@@ -383,18 +383,18 @@ class GF_FreeScout extends GFFeedAddOn {
 			),
 			// Conditional Logic.
 			array(
-				'title'  => esc_html__( 'Conditional Logic', 'gravityformsfreescout' ),
+				'title'  => esc_html__( 'Conditional Logic', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
 						'name'           => 'feedCondition',
 						'type'           => 'feed_condition',
-						'label'          => esc_html__( 'Condition', 'gravityformsfreescout' ),
-						'checkbox_label' => esc_html__( 'Enable Condition', 'gravityformsfreescout' ),
-						'instructions'   => esc_html__( 'Create FreeScout conversation if', 'gravityformsfreescout' ),
+						'label'          => esc_html__( 'Condition', 'wwmc-gf-freescout' ),
+						'checkbox_label' => esc_html__( 'Enable Condition', 'wwmc-gf-freescout' ),
+						'instructions'   => esc_html__( 'Create FreeScout conversation if', 'wwmc-gf-freescout' ),
 						'tooltip'        => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Conditional Logic', 'gravityformsfreescout' ),
-							esc_html__( 'When conditions are enabled, the conversation will only be created when the conditions are met.', 'gravityformsfreescout' )
+							esc_html__( 'Conditional Logic', 'wwmc-gf-freescout' ),
+							esc_html__( 'When conditions are enabled, the conversation will only be created when the conditions are met.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
@@ -409,8 +409,8 @@ class GF_FreeScout extends GFFeedAddOn {
 	 */
 	public function feed_list_columns() {
 		return array(
-			'feedName'      => esc_html__( 'Name', 'gravityformsfreescout' ),
-			'customerEmail' => esc_html__( 'Email Field', 'gravityformsfreescout' ),
+			'feedName'      => esc_html__( 'Name', 'wwmc-gf-freescout' ),
+			'customerEmail' => esc_html__( 'Email Field', 'wwmc-gf-freescout' ),
 		);
 	}
 
@@ -423,7 +423,7 @@ class GF_FreeScout extends GFFeedAddOn {
 	public function get_column_value_customerEmail( $feed ) {
 		$field_id = rgars( $feed, 'meta/customerEmail' );
 		if ( empty( $field_id ) ) {
-			return esc_html__( 'Not configured', 'gravityformsfreescout' );
+			return esc_html__( 'Not configured', 'wwmc-gf-freescout' );
 		}
 
 		$form  = $this->get_current_form();
@@ -470,7 +470,7 @@ class GF_FreeScout extends GFFeedAddOn {
 		// Validate API configuration.
 		if ( empty( $api_url ) || empty( $api_key ) ) {
 			$this->add_feed_error(
-				esc_html__( 'FreeScout API is not configured. Please check plugin settings.', 'gravityformsfreescout' ),
+				esc_html__( 'FreeScout API is not configured. Please check plugin settings.', 'wwmc-gf-freescout' ),
 				$feed,
 				$entry,
 				$form
@@ -491,7 +491,7 @@ class GF_FreeScout extends GFFeedAddOn {
 		// Validate email.
 		if ( empty( $customer_email ) || ! is_email( $customer_email ) ) {
 			$this->add_feed_error(
-				esc_html__( 'Invalid or missing customer email address.', 'gravityformsfreescout' ),
+				esc_html__( 'Invalid or missing customer email address.', 'wwmc-gf-freescout' ),
 				$feed,
 				$entry,
 				$form
@@ -515,7 +515,7 @@ class GF_FreeScout extends GFFeedAddOn {
 
 		if ( empty( $message ) ) {
 			$this->add_feed_error(
-				esc_html__( 'Message field is empty.', 'gravityformsfreescout' ),
+				esc_html__( 'Message field is empty.', 'wwmc-gf-freescout' ),
 				$feed,
 				$entry,
 				$form
@@ -574,7 +574,7 @@ class GF_FreeScout extends GFFeedAddOn {
 			$this->add_feed_error(
 				sprintf(
 					/* translators: %s: error message */
-					esc_html__( 'API request failed: %s', 'gravityformsfreescout' ),
+					esc_html__( 'API request failed: %s', 'wwmc-gf-freescout' ),
 					$response->get_error_message()
 				),
 				$feed,
@@ -604,7 +604,7 @@ class GF_FreeScout extends GFFeedAddOn {
 				$entry['id'],
 				sprintf(
 					/* translators: %d: conversation ID */
-					esc_html__( 'FreeScout conversation created successfully. Conversation ID: %d', 'gravityformsfreescout' ),
+					esc_html__( 'FreeScout conversation created successfully. Conversation ID: %d', 'wwmc-gf-freescout' ),
 					rgar( $data, 'id', 0 )
 				),
 				'success'
@@ -617,7 +617,7 @@ class GF_FreeScout extends GFFeedAddOn {
 		$this->add_feed_error(
 			sprintf(
 				/* translators: 1: HTTP response code, 2: response body */
-				esc_html__( 'API error: HTTP %1$d - %2$s', 'gravityformsfreescout' ),
+				esc_html__( 'API error: HTTP %1$d - %2$s', 'wwmc-gf-freescout' ),
 				$response_code,
 				$response_body
 			),
@@ -710,13 +710,13 @@ class GF_FreeScout extends GFFeedAddOn {
 	 */
 	public function get_entry_meta( $entry_meta, $form_id ) {
 		$entry_meta['freescout_conversation_id'] = array(
-			'label'             => esc_html__( 'FreeScout Conversation ID', 'gravityformsfreescout' ),
+			'label'             => esc_html__( 'FreeScout Conversation ID', 'wwmc-gf-freescout' ),
 			'is_numeric'        => true,
 			'is_default_column' => false,
 		);
 
 		$entry_meta['freescout_conversation_number'] = array(
-			'label'             => esc_html__( 'FreeScout Conversation #', 'gravityformsfreescout' ),
+			'label'             => esc_html__( 'FreeScout Conversation #', 'wwmc-gf-freescout' ),
 			'is_numeric'        => true,
 			'is_default_column' => false,
 		);
