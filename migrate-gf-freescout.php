@@ -33,14 +33,11 @@ $new_path    = 'wwmc-gf-freescout/freescout.php';
 $old_option  = 'gravityformsaddon_' . $old_slug . '_settings';
 $new_option  = 'gravityformsaddon_' . $new_slug . '_settings';
 
-// Check for --run flag (WP-CLI passes args via $args global).
+// Check for run mode.
+// Set GF_MIGRATE_RUN=1 environment variable to actually run the migration.
 $dry_run = true;
-if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	// WP-CLI eval-file passes extra args.
-	global $argv;
-	if ( is_array( $argv ) && in_array( '--run', $argv, true ) ) {
-		$dry_run = false;
-	}
+if ( getenv( 'GF_MIGRATE_RUN' ) === '1' ) {
+	$dry_run = false;
 }
 
 echo "\n";
@@ -236,8 +233,8 @@ if ( $dry_run ) {
 	echo "\n";
 	echo "This was a DRY RUN. To apply changes, run:\n";
 	echo "\n";
-	echo "  docker exec CONTAINER wp eval-file \\\n";
-	echo "    /var/www/html/wp-content/plugins/wwmc-gf-freescout/migrate-gf-freescout.php --run\n";
+	echo "  docker exec -e GF_MIGRATE_RUN=1 CONTAINER wp eval-file \\\n";
+	echo "    /var/www/html/wp-content/plugins/wwmc-gf-freescout/migrate-gf-freescout.php --allow-root\n";
 	echo "\n";
 } else {
 	echo "\n";
