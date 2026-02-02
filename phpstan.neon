@@ -1,0 +1,37 @@
+includes:
+    - /opt/dev-tools/vendor/szepeviktor/phpstan-wordpress/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    # Analysis level (0-9, higher = stricter)
+    # Start with 5, increase gradually
+    level: 5
+
+    # Stub files for external dependencies
+    scanFiles:
+        - phpstan-stubs.php
+
+    # Paths to analyze
+    paths:
+        - class-gf-freescout.php
+        - freescout.php
+
+    # Paths to exclude
+    excludePaths:
+        - vendor
+        - node_modules
+        - tests
+        - ui-apps/*/build
+        - ui-apps/*/dist
+
+    # Treat undefined variables as errors
+    checkUninitializedProperties: true
+
+    # Allow dynamic properties (common in WordPress)
+    checkDynamicProperties: false
+
+    # Ignore specific errors
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics
+    reportUnmatchedIgnoredErrors: false

@@ -1,0 +1,36 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Function gform_update_meta not found\\.$#"
+			count: 2
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Function rgar not found\\.$#"
+			count: 7
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Function rgars not found\\.$#"
+			count: 6
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Method GFFeedAddOn\\:\\:get_generic_map_fields\\(\\) invoked with 4 parameters, 1 required\\.$#"
+			count: 1
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Parameter \\#2 \\$field_id of method GFFeedAddOn\\:\\:get_field_value\\(\\) expects string, array given\\.$#"
+			count: 3
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: class-gf-freescout.php
+
+		-
+			message: "#^Static method GFCommon\\:\\:replace_variables\\(\\) invoked with 7 parameters, 3 required\\.$#"
+			count: 1
+			path: class-gf-freescout.php
