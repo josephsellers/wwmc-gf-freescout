@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="/opt/dev-tools/vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	verbose="true"
+>
+	<testsuites>
+		<testsuite name="unit">
+			<directory suffix="Test.php">./tests/Unit</directory>
+		</testsuite>
+		<testsuite name="integration">
+			<directory suffix="Test.php">./tests/Integration</directory>
+		</testsuite>
+	</testsuites>
+
+	<coverage processUncoveredFiles="true">
+		<include>
+			<file>./freescout.php</file>
+			<file>./class-gf-freescout.php</file>
+		</include>
+		<exclude>
+			<directory>./vendor</directory>
+			<directory>./tests</directory>
+		</exclude>
+		<report>
+			<html outputDirectory="tests/coverage" lowUpperBound="50" highLowerBound="85"/>
+			<text outputFile="php://stdout" showUncoveredFiles="true"/>
+		</report>
+	</coverage>
+
+	<php>
+		<const name="WP_TESTS_PHPUNIT_POLYFILLS_PATH" value="/opt/dev-tools/vendor/yoast/phpunit-polyfills"/>
+	</php>
+
+	<logging>
+		<junit outputFile="tests/results/junit.xml"/>
+	</logging>
+</phpunit>
