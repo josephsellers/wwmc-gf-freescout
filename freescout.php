@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WWMC Gravity Forms FreeScout Add-On
+ * Plugin Name: WWMC Gravity Forms Helpdesk Add-On
  * Plugin URI: https://github.com/josephsellers/wwmc-gf-freescout
- * Description: Integrates Gravity Forms with FreeScout helpdesk by creating conversations from form submissions.
- * Version: 1.0.0
+ * Description: Integrates Gravity Forms with LibreDesk helpdesk by creating conversations from form submissions.
+ * Version: 2.0.0
  * Author: Joseph Sellers
  * Author URI: https://rokesmith.com
  * License: GPL-2.0+
@@ -16,7 +16,7 @@
 defined( 'ABSPATH' ) || die();
 
 // Define plugin version constant.
-define( 'GF_FREESCOUT_VERSION', '1.0.0' );
+define( 'GF_FREESCOUT_VERSION', '2.0.0' );
 
 // Bootstrap the add-on when Gravity Forms is loaded.
 add_action( 'gform_loaded', array( 'GF_FreeScout_Bootstrap', 'load' ), 5 );

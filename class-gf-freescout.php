@@ -1,6 +1,6 @@
 <?php
 /**
- * FreeScout integration using the Gravity Forms Add-On Framework.
+ * Helpdesk integration using the Gravity Forms Add-On Framework.
  *
  * @package GF_FreeScout
  */
@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || die();
 GFForms::include_feed_addon_framework();
 
 /**
- * FreeScout integration using the Add-On Framework.
+ * Helpdesk integration using the Add-On Framework.
  *
  * @see GFFeedAddOn
  */
@@ -64,14 +64,14 @@ class GF_FreeScout extends GFFeedAddOn {
 	 *
 	 * @var string
 	 */
-	protected $_title = 'Gravity Forms FreeScout Add-On';
+	protected $_title = 'Gravity Forms Helpdesk Add-On';
 
 	/**
 	 * Short title for menus.
 	 *
 	 * @var string
 	 */
-	protected $_short_title = 'FreeScout';
+	protected $_short_title = 'Helpdesk';
 
 	/**
 	 * Singleton instance.
@@ -148,46 +148,59 @@ class GF_FreeScout extends GFFeedAddOn {
 	public function plugin_settings_fields() {
 		return array(
 			array(
-				'title'       => esc_html__( 'FreeScout API Settings', 'wwmc-gf-freescout' ),
-				'description' => esc_html__( 'Configure your FreeScout instance connection settings. You can find your API key in FreeScout under Manage -> API Keys.', 'wwmc-gf-freescout' ),
+				'title'       => esc_html__( 'LibreDesk API Settings', 'wwmc-gf-freescout' ),
+				'description' => esc_html__( 'Configure your LibreDesk instance connection settings. Generate an API key pair in LibreDesk under your agent profile.', 'wwmc-gf-freescout' ),
 				'fields'      => array(
 					array(
-						'name'              => 'freescout_url',
-						'label'             => esc_html__( 'FreeScout URL', 'wwmc-gf-freescout' ),
+						'name'              => 'helpdesk_url',
+						'label'             => esc_html__( 'LibreDesk URL', 'wwmc-gf-freescout' ),
 						'type'              => 'text',
 						'class'             => 'medium',
 						'required'          => true,
 						'tooltip'           => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'FreeScout URL', 'wwmc-gf-freescout' ),
-							esc_html__( 'Enter the base URL of your FreeScout instance (e.g., https://support.example.com). Do not include a trailing slash.', 'wwmc-gf-freescout' )
+							esc_html__( 'LibreDesk URL', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the base URL of your LibreDesk instance (e.g., https://support.example.com). Do not include a trailing slash.', 'wwmc-gf-freescout' )
 						),
-						'feedback_callback' => array( $this, 'validate_freescout_url' ),
+						'feedback_callback' => array( $this, 'validate_helpdesk_url' ),
 					),
 					array(
-						'name'              => 'api_key',
-						'label'             => esc_html__( 'API Key', 'wwmc-gf-freescout' ),
+						'name'       => 'api_key',
+						'label'      => esc_html__( 'API Key', 'wwmc-gf-freescout' ),
+						'type'       => 'text',
+						'class'      => 'medium',
+						'required'   => true,
+						'input_type' => 'password',
+						'tooltip'    => sprintf(
+							'<h6>%s</h6>%s',
+							esc_html__( 'API Key', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter your LibreDesk API key.', 'wwmc-gf-freescout' )
+						),
+					),
+					array(
+						'name'              => 'api_secret',
+						'label'             => esc_html__( 'API Secret', 'wwmc-gf-freescout' ),
 						'type'              => 'text',
 						'class'             => 'medium',
 						'required'          => true,
 						'input_type'        => 'password',
 						'tooltip'           => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'API Key', 'wwmc-gf-freescout' ),
-							esc_html__( 'Enter your FreeScout API key. Generate one in FreeScout under Manage -> API Keys.', 'wwmc-gf-freescout' )
+							esc_html__( 'API Secret', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter your LibreDesk API secret.', 'wwmc-gf-freescout' )
 						),
 						'feedback_callback' => array( $this, 'validate_api_credentials' ),
 					),
 					array(
-						'name'          => 'default_mailbox_id',
-						'label'         => esc_html__( 'Default Mailbox ID', 'wwmc-gf-freescout' ),
+						'name'          => 'default_inbox_id',
+						'label'         => esc_html__( 'Default Inbox ID', 'wwmc-gf-freescout' ),
 						'type'          => 'text',
 						'class'         => 'small',
 						'default_value' => '1',
 						'tooltip'       => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Default Mailbox ID', 'wwmc-gf-freescout' ),
-							esc_html__( 'Enter the default FreeScout mailbox ID. This can be overridden per form feed. Find the ID in FreeScout mailbox settings.', 'wwmc-gf-freescout' )
+							esc_html__( 'Default Inbox ID', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the default LibreDesk inbox ID. This can be overridden per form feed.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
@@ -196,12 +209,12 @@ class GF_FreeScout extends GFFeedAddOn {
 	}
 
 	/**
-	 * Validate the FreeScout URL format.
+	 * Validate the helpdesk URL format.
 	 *
 	 * @param string $value The URL value.
 	 * @return bool
 	 */
-	public function validate_freescout_url( $value ) {
+	public function validate_helpdesk_url( $value ) {
 		if ( empty( $value ) ) {
 			return false;
 		}
@@ -211,7 +224,11 @@ class GF_FreeScout extends GFFeedAddOn {
 	/**
 	 * Validate API credentials by making a test request.
 	 *
-	 * @param string $value The API key value.
+	 * Called as the feedback_callback on the api_secret field, so both
+	 * api_key and api_secret are saved by the time this runs (GF processes
+	 * fields top-to-bottom).
+	 *
+	 * @param string $value The API secret value.
 	 * @return bool|null
 	 */
 	public function validate_api_credentials( $value ) {
@@ -219,19 +236,20 @@ class GF_FreeScout extends GFFeedAddOn {
 			return false;
 		}
 
-		$settings = $this->get_plugin_settings();
-		$url      = rgar( $settings, 'freescout_url' );
+		$settings   = $this->get_plugin_settings();
+		$url        = rgar( $settings, 'helpdesk_url' );
+		$api_key    = rgar( $settings, 'api_key' );
 
-		if ( empty( $url ) ) {
-			return null; // Can't validate without URL.
+		if ( empty( $url ) || empty( $api_key ) ) {
+			return null; // Can't validate without URL and key.
 		}
 
-		// Test the API connection by fetching mailboxes.
+		// Test the API connection with a search query.
 		$response = wp_remote_get(
-			rtrim( $url, '/' ) . '/api/mailboxes',
+			rtrim( $url, '/' ) . '/api/v1/conversations/search?query=0',
 			array(
 				'headers' => array(
-					'X-FreeScout-API-Key' => $value,
+					'Authorization' => 'token ' . $api_key . ':' . $value,
 				),
 				'timeout' => 15,
 			)
@@ -274,19 +292,19 @@ class GF_FreeScout extends GFFeedAddOn {
 					),
 				),
 			),
-			// Mailbox Configuration.
+			// Inbox Configuration.
 			array(
-				'title'  => esc_html__( 'Mailbox', 'wwmc-gf-freescout' ),
+				'title'  => esc_html__( 'Inbox', 'wwmc-gf-freescout' ),
 				'fields' => array(
 					array(
-						'name'    => 'mailboxId',
-						'label'   => esc_html__( 'Mailbox ID', 'wwmc-gf-freescout' ),
+						'name'    => 'inboxId',
+						'label'   => esc_html__( 'Inbox ID', 'wwmc-gf-freescout' ),
 						'type'    => 'text',
 						'class'   => 'small',
 						'tooltip' => sprintf(
 							'<h6>%s</h6>%s',
-							esc_html__( 'Mailbox ID', 'wwmc-gf-freescout' ),
-							esc_html__( 'Enter the FreeScout mailbox ID for this form. Leave empty to use the default from plugin settings.', 'wwmc-gf-freescout' )
+							esc_html__( 'Inbox ID', 'wwmc-gf-freescout' ),
+							esc_html__( 'Enter the LibreDesk inbox ID for this form. Leave empty to use the default from plugin settings.', 'wwmc-gf-freescout' )
 						),
 					),
 				),
@@ -390,7 +408,7 @@ class GF_FreeScout extends GFFeedAddOn {
 						'type'           => 'feed_condition',
 						'label'          => esc_html__( 'Condition', 'wwmc-gf-freescout' ),
 						'checkbox_label' => esc_html__( 'Enable Condition', 'wwmc-gf-freescout' ),
-						'instructions'   => esc_html__( 'Create FreeScout conversation if', 'wwmc-gf-freescout' ),
+						'instructions'   => esc_html__( 'Create helpdesk conversation if', 'wwmc-gf-freescout' ),
 						'tooltip'        => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Conditional Logic', 'wwmc-gf-freescout' ),
@@ -451,7 +469,7 @@ class GF_FreeScout extends GFFeedAddOn {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Process the feed - create FreeScout conversation.
+	 * Process the feed - create LibreDesk conversation.
 	 *
 	 * @param array $feed  The current feed object.
 	 * @param array $entry The current entry object.
@@ -464,26 +482,27 @@ class GF_FreeScout extends GFFeedAddOn {
 		$settings = $this->get_plugin_settings();
 
 		// Get API configuration.
-		$api_url = rtrim( rgar( $settings, 'freescout_url' ), '/' );
-		$api_key = rgar( $settings, 'api_key' );
+		$api_url    = rtrim( rgar( $settings, 'helpdesk_url' ), '/' );
+		$api_key    = rgar( $settings, 'api_key' );
+		$api_secret = rgar( $settings, 'api_secret' );
 
 		// Validate API configuration.
-		if ( empty( $api_url ) || empty( $api_key ) ) {
+		if ( empty( $api_url ) || empty( $api_key ) || empty( $api_secret ) ) {
 			$this->add_feed_error(
-				esc_html__( 'FreeScout API is not configured. Please check plugin settings.', 'wwmc-gf-freescout' ),
+				esc_html__( 'Helpdesk API is not configured. Please check plugin settings.', 'wwmc-gf-freescout' ),
 				$feed,
 				$entry,
 				$form
 			);
-			return new WP_Error( 'api_not_configured', 'FreeScout API is not configured.' );
+			return new WP_Error( 'api_not_configured', 'Helpdesk API is not configured.' );
 		}
 
-		// Get mailbox ID (feed setting or plugin default).
-		$mailbox_id = rgars( $feed, 'meta/mailboxId' );
-		if ( empty( $mailbox_id ) ) {
-			$mailbox_id = rgar( $settings, 'default_mailbox_id', 1 );
+		// Get inbox ID (feed setting or plugin default).
+		$inbox_id = rgars( $feed, 'meta/inboxId' );
+		if ( empty( $inbox_id ) ) {
+			$inbox_id = rgar( $settings, 'default_inbox_id', 1 );
 		}
-		$mailbox_id = (int) $mailbox_id;
+		$inbox_id = (int) $inbox_id;
 
 		// Get customer email.
 		$customer_email = $this->get_field_value( $form, $entry, rgars( $feed, 'meta/customerEmail' ) );
@@ -528,41 +547,31 @@ class GF_FreeScout extends GFFeedAddOn {
 
 		// Build API payload.
 		$payload = array(
-			'type'      => 'email',
-			'mailboxId' => $mailbox_id,
-			'subject'   => $subject,
-			'customer'  => array(
-				'email' => $customer_email,
-			),
-			'threads'   => array(
-				array(
-					'type'      => 'customer',
-					'text'      => $full_message,
-					'createdAt' => gmdate( 'c', strtotime( $entry['date_created'] ) ),
-				),
-			),
-			'imported'  => true,
-			'status'    => 'active',
+			'subject'       => $subject,
+			'content'       => $full_message,
+			'inbox_id'      => $inbox_id,
+			'contact_email' => $customer_email,
+			'initiator'     => 'contact',
 		);
 
 		// Add customer name if available.
 		if ( ! empty( $name_parts['first'] ) ) {
-			$payload['customer']['firstName'] = $name_parts['first'];
+			$payload['first_name'] = $name_parts['first'];
 		}
 		if ( ! empty( $name_parts['last'] ) ) {
-			$payload['customer']['lastName'] = $name_parts['last'];
+			$payload['last_name'] = $name_parts['last'];
 		}
 
 		// Log the request.
-		$this->log_debug( __METHOD__ . '(): Sending request to FreeScout: ' . print_r( $payload, true ) );
+		$this->log_debug( __METHOD__ . '(): Sending request to LibreDesk: ' . print_r( $payload, true ) );
 
 		// Send API request.
 		$response = wp_remote_post(
-			$api_url . '/api/conversations',
+			$api_url . '/api/v1/conversations',
 			array(
 				'headers' => array(
-					'X-FreeScout-API-Key' => $api_key,
-					'Content-Type'        => 'application/json',
+					'Authorization' => 'token ' . $api_key . ':' . $api_secret,
+					'Content-Type'  => 'application/json',
 				),
 				'body'    => wp_json_encode( $payload ),
 				'timeout' => 30,
@@ -593,19 +602,19 @@ class GF_FreeScout extends GFFeedAddOn {
 		if ( $response_code >= 200 && $response_code < 300 ) {
 			$data = json_decode( $response_body, true );
 
-			// Store conversation ID in entry meta.
-			if ( isset( $data['id'] ) ) {
-				gform_update_meta( $entry['id'], 'freescout_conversation_id', $data['id'] );
-				gform_update_meta( $entry['id'], 'freescout_conversation_number', rgar( $data, 'number', '' ) );
+			// Store conversation UUID and reference number in entry meta.
+			if ( isset( $data['data']['uuid'] ) ) {
+				gform_update_meta( $entry['id'], 'libredesk_conversation_uuid', $data['data']['uuid'] );
+				gform_update_meta( $entry['id'], 'libredesk_reference_number', rgar( $data['data'], 'reference_number', '' ) );
 			}
 
 			// Add success note.
 			$this->add_note(
 				$entry['id'],
 				sprintf(
-					/* translators: %d: conversation ID */
-					esc_html__( 'FreeScout conversation created successfully. Conversation ID: %d', 'wwmc-gf-freescout' ),
-					rgar( $data, 'id', 0 )
+					/* translators: %s: conversation UUID */
+					esc_html__( 'Helpdesk conversation created successfully. UUID: %s', 'wwmc-gf-freescout' ),
+					rgar( $data['data'], 'uuid', '' )
 				),
 				'success'
 			);
@@ -701,7 +710,7 @@ class GF_FreeScout extends GFFeedAddOn {
 	}
 
 	/**
-	 * Define entry meta for FreeScout data.
+	 * Define entry meta for LibreDesk data.
 	 *
 	 * @param array $entry_meta Existing entry meta.
 	 * @param int   $form_id    The form ID.
@@ -709,15 +718,15 @@ class GF_FreeScout extends GFFeedAddOn {
 	 * @return array Modified entry meta.
 	 */
 	public function get_entry_meta( $entry_meta, $form_id ) {
-		$entry_meta['freescout_conversation_id'] = array(
-			'label'             => esc_html__( 'FreeScout Conversation ID', 'wwmc-gf-freescout' ),
-			'is_numeric'        => true,
+		$entry_meta['libredesk_conversation_uuid'] = array(
+			'label'             => esc_html__( 'LibreDesk Conversation UUID', 'wwmc-gf-freescout' ),
+			'is_numeric'        => false,
 			'is_default_column' => false,
 		);
 
-		$entry_meta['freescout_conversation_number'] = array(
-			'label'             => esc_html__( 'FreeScout Conversation #', 'wwmc-gf-freescout' ),
-			'is_numeric'        => true,
+		$entry_meta['libredesk_reference_number'] = array(
+			'label'             => esc_html__( 'LibreDesk Reference #', 'wwmc-gf-freescout' ),
+			'is_numeric'        => false,
 			'is_default_column' => false,
 		);
 
